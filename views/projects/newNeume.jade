@@ -16,6 +16,7 @@ block content
 		link(href='/stylesheets/dropzone.css', rel='stylesheet')
 		div#dropzone-example.dropzone(method='post', action='/image' name="image" required)
 		.fallback
+			input(name='file', type='file', multiple='' hidden)
 		p Name: 
 			input#inputName(type="text", placeholder="ex. Punctum", name="name" required)
 		p Folio:
@@ -44,6 +45,12 @@ block content
 		input(type="text", name="imageDeletedDropzone", id = "imageToDeleteDropzone" hidden required)     
 		input(type='hidden',value='DELETE',name='_method')
 		button(type = "submit" id ="deleteImageButtonDropzone" hidden) submit
+
+	form(accept='image/x-png,image/gif,image/jpeg', enctype='multipart/form-data', action='/image', method='post')
+		input(type='file', name='avatar', value='' id = "imageToUploadDropzone")
+		input(type='submit', name='', value='ssss' id = "uploadImageDropzone")
+
+
 
 		script.
 			var url = window.location.href;
@@ -98,8 +105,8 @@ block content
 			acceptedFiles: ".png, .jpg, .tiff, .tif, .jpeg"
 		});
 		myDropzone.on("success", function(file, serverResponse) {
-			console.log(file);
-			document.getElementById("imageToDeleteDropzone").value = file.upload.uuid + ".jpg"; 
+			file.upload.filename = "hello"; //We can set this as the name of the real file
+			console.log(file);		
 		});
 		myDropzone.on('removedfile', function (file) {
 		//Function from rm_image_dropzone.js to remove file from folder

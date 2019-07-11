@@ -11,7 +11,7 @@ var db = require('./model/db'),
     neume = require('./model/neumes');
     image = require('./model/images');
     project = require('./model/projects');
-
+var multer  = require('multer');
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -47,45 +47,50 @@ app.use('/', routes);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-var multer = require('multer');
+global.filePath = [];//Empty array
 
-//If folder doesn't exist, create a new uploads folder :
-var fs = require('fs');
-var dir = './uploads';
-  if (!fs.existsSync(dir)){
-      fs.mkdirSync(dir);
-  }
-var tmpPath = 0;
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/')
-  },
-  filename: function (req, file, cb) {
-     console.log(uuid.v4())
-        global.id = uuid.v4() + ".jpg";
-    cb(null, id + "") //Changing pathname to unique path
-    // Get values from POST request. These can be done through forms or REST calls. These rely on the "name" attributes for forms
-        //call the create function for our database
-        
-        mongoose.model('image').create({
-            imagepath : id, //unique pathname  
-        }, function (err, image) {
-              if (err) {
-                  res.send("There was a problem adding the information to the database.");
-              } else {
-                  //neume has been created
-                  console.log('POST creating new image: ' + image);
-                  imageArray.push(image.imagepath);
-          }
-    })
-  }
-})
+var storage = multer.diskStorage(
+    {
+        destination: 'uploads/',
+        filename: function ( req, file, cb ) {
+          console.log(file);
+          file.push({uuid : "hello"});
+            //How could I get the new_file_name property sent from client here?
+            cb( null, file.originalname + ".jpg");
 
-//if a file is removed from the dropzone : 
-//if the remove button is pressed in the dropzone, 
-//You need to unlink the file "file" : 
+        }
+    }
+);
 
-var upload = multer({ storage: storage });
+var upload = multer({storage : storage })
+
+app.post('/image', upload.single('file'), function(req, res) {
+        filePath = [];     
+        // Get values from POST request. These can be done through forms or REST calls. These rely on the "name" attributes for forms
+        var file = req.file.originalname;
+        filePath.push(file);
+        console.log(filePath);
+                  //project has been created
+                  console.log('File name changed: ' + filePath); //project holds the new project
+                //This works!     
+                mongoose.model('image').create({
+                  imagepath : filePath[0], //unique pathname  
+                  }, function (err, image) {
+                        if (err) {
+                            console.log("There was a problem adding the information to the database.");
+                        } else {
+                            //neume has been created
+                            console.log('POST creating new image: ' + image);
+                            imageArray.push(image.imagepath);
+                    }
+              })
+                res.status(204).send('good Request');
+       filePath = [];      
+    });
+
+ 
+
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
@@ -96,7 +101,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize())  
 app.use(passport.session()) 
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(multer({storage}).any()); // dest is not necessary if you are happy with the default: /tmp
 app.use(express.static(path.join(__dirname, 'bower_components')));
 // routes for Dropzone element
 app.get('/image', function (req, res) {
@@ -106,11 +110,6 @@ app.get('/image', function (req, res) {
 
 app.get('/old', function (req, res) {
     res.send('<html><head><title>Dropzone example</title><link href="/stylesheets/dropzone.css" rel="stylesheet"></head><body><h1>Old form</h1><form method="post" action="/" id="old-example" enctype="multipart/form-data"><input name="file" type="file" multiple /><button>Save</button></form><script src="/javascripts/dropzone.js"></script></body></html>');
-});
-
-app.post('/image', function (req, res) {
-    //console.log (req.files);
-   res.status(200).send('good Request');
 });
 
 //Route to show the image as gallery in edits : 

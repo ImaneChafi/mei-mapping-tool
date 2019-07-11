@@ -568,6 +568,58 @@ router.route('/project/:id/edit')
       });
   });
 
+router.route('/uploadImage')
+    //POST a new project
+    .delete(function(req, res) {
+        // Get values from POST request. These can be done through forms or REST calls. These rely on the "name" attributes for forms
+        global.filePath = req.body.uploadDropzone;
+                  //project has been created
+                  console.log('File name changed: ' + filePath); //project holds the new project
+                //This works!
+        res.status(204).send('good Request');
+    });
+
+var multer = require('multer');
+
+//If folder doesn't exist, create a new uploads folder :
+var fs = require('fs');
+var dir = './uploads';
+  if (!fs.existsSync(dir)){
+      fs.mkdirSync(dir);
+  }
+var tmpPath = 0;
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+     console.log(uuid.v4())
+        global.id = filePath; //This can't be random, it needs to be the image upload uuid
+    cb(null, id + "") //Changing pathname to unique path
+    // Get values from POST request. These can be done through forms or REST calls. These rely on the "name" attributes for forms
+        //call the create function for our database
+        
+        mongoose.model('image').create({
+            imagepath : id, //unique pathname  
+        }, function (err, image) {
+              if (err) {
+                  res.send("There was a problem adding the information to the database.");
+              } else {
+                  //neume has been created
+                  console.log('POST creating new image: ' + image);
+                  imageArray.push(image.imagepath);
+          }
+    })
+  }
+})
+
+//if a file is removed from the dropzone : 
+//if the remove button is pressed in the dropzone, 
+//You need to unlink the file "file" : 
+
+var upload = multer({ storage: storage });
+router.use(multer({storage}).any()); // dest is not necessary if you are happy with the default: /tmp
+
 /* Delete dropzone images. */
 router.route('/deleteImageDropzone')
   //DELETE an image by ID
