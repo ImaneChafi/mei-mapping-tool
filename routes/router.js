@@ -844,6 +844,34 @@ router.post('/', function (req, res, next) {
         });
   }
 })
+// Update the information on the database
+router.post('/imageProfile', function (req, res, next) {
+ 
+      var username = req.body.filename;
+
+  User.findById(req.session.userId)
+    .exec(function (error, user) {
+      if (error) {
+        alert(error, 'yad');
+        return res.redirect('back');
+      } else {
+        if (user === null) {
+          var err = new Error('Not Authorized.');
+        alert(err, 'yad');
+        return res.redirect('back');
+        } else {
+         return res.format({
+          html: function(){           
+            res.redirect("back");
+          },
+          json: function(){
+              res.json(project);
+          }
+        });
+        }
+      }
+    });
+});
 
 // GET route after registering
 router.get('/profile', function (req, res, next) {
@@ -883,7 +911,8 @@ router.get('/profile', function (req, res, next) {
                 "bio": user.bio,
                 "collaborators" : user.collaborators,
                 "users" : usersSelect,
-                "projects" : projectsUsers
+                "projects" : projectsUsers,
+                "imgProfile" : imgProfile
               });
           },
           json: function(){

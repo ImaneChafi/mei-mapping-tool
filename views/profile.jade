@@ -67,7 +67,7 @@ html
           #w
             #content.clearfix
               #userphoto
-                img(src='images/avatar.png', alt='default avatar')
+                img(src='#{profilePic}', alt='default avatar')
                 form(action='/imageProfile',  method='post' )
                   input(type='file', name='pic', accept='image/*')
                   button(class = "button button2CSV") 
