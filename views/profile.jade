@@ -30,6 +30,7 @@ html
     link(rel="stylesheet" href="/stylesheets/reset.css")
     script(type='text/javascript' src='/javascripts/modals.js')
     link(rel="stylesheet" href="/stylesheets/inputCss.css")
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
 
 
 
@@ -67,6 +68,11 @@ html
             #content.clearfix
               #userphoto
                 img(src='images/avatar.png', alt='default avatar')
+                form(action='/imageProfile',  method='post' )
+                  input(type='file', name='pic', accept='image/*')
+                  button(class = "button button2CSV") 
+                   i.fa.fa-check 
+
               h1 #{username}
               nav#profiletabs
                 ul.clearfix
