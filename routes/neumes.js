@@ -290,6 +290,7 @@ router.route('/:id/editImage')
       var dob = req.body.dob;
       var projectName = req.body.projectName;
       global.editArray = [];
+      var imageId = req.body.imageId;
 
       //find the document by ID
       mongoose.model('neume').findById(req.id, function (err, neume) {
@@ -321,7 +322,7 @@ router.route('/:id/editImage')
                         mongoose.model('neume').findOneAndUpdate({_id: neume._id}, 
                         {
                           //push the neumes into the imagesBinary array
-                          $push: {imagesBinary : imageData}}, 
+                          $push: {imagesBinary : {imagesBinary : imageData, imageId : imageId} }}, 
 
                         function(err, data){
                           //console.log(err, data);
@@ -408,7 +409,9 @@ router.route('/:id/deleteImage')
       //1. Change the imagesBinary schema so that you search through the ids of each new image added to the neume
       //2. From the view, when an image is deleted, an input named req.body.imageId will be there and used to pull the image that has the same 
       //id from the neume array imagesBinary
+      var imageId = req.body.imageId;
       //3. Keep the remove image from database storedImages. 
+
 
 
 
