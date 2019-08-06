@@ -415,14 +415,16 @@ router.route('/:id/deleteImage')
             //This works, when the page is reloaded
             //I need to use the find method to find the first element of the array that has the solution
             //Then I will pull from the imagesBinary array only that element
-            mongoose.model(neume).find({_id: neume.id}, function(err, data){
-              
-            })
+            mongoose.model("neume").findById(neume.id, function(err, data){
+              var BinImg = data.imagesBinary; //This is the array that contains all the images
+              var found = BinImg.find(function(element) {
+                return element == imageToDelete;
+              });
 
-
-            mongoose.model('neume').findOneAndUpdate({_id: neume.id}, {$pull: {imagesBinary : imageToDelete}}, function(err, data){
+            mongoose.model('neume').findOneAndUpdate({_id: neume.id}, {$pull: {imagesBinary : found}}, function(err, data){
                 console.log(err, data);
               });
+                        })
 
             //remove from neume array the imagepath = imageDeleted
             //deleting the images from the image model 
