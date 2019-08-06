@@ -402,6 +402,16 @@ router.route('/:id/deleteImage')
     //imageDeleted is the path of the image we want to delete.
     var imageToDelete = req.body.imageDeleted; //this seems to be undefined.
 
+
+  //For the deleting images that have the same binary file bug : 
+
+      //1. Change the imagesBinary schema so that you search through the ids of each new image added to the neume
+      //2. From the view, when an image is deleted, an input named req.body.imageId will be there and used to pull the image that has the same 
+      //id from the neume array imagesBinary
+      //3. Keep the remove image from database storedImages. 
+
+
+
     //This is the p element
      //The image deleted from the page is going to have imageDeleted as a name in the editNeume.jade file
       //req.body.imageDeleted doesnt seem to work
