@@ -329,10 +329,10 @@ router.route('/:id/editImage')
                         });
                         a.save(function (err, a) {
                           if (err) throw err;
-
+                          imageData = [];
                           console.error('saved img to mongo');
                         });
-
+                        imageData = [];
                   });
               imageArray = [];
                   mongoose.model('neume').find({project : ID_project}, function (err, neumes) { 
