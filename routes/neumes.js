@@ -413,6 +413,13 @@ router.route('/:id/deleteImage')
               return console.error(err);
           } else {
             //This works, when the page is reloaded
+            //I need to use the find method to find the first element of the array that has the solution
+            //Then I will pull from the imagesBinary array only that element
+            mongoose.model(neume).find({_id: neume.id}, function(err, data){
+              
+            })
+
+
             mongoose.model('neume').findOneAndUpdate({_id: neume.id}, {$pull: {imagesBinary : imageToDelete}}, function(err, data){
                 console.log(err, data);
               });
