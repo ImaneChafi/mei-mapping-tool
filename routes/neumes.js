@@ -410,7 +410,7 @@ router.route('/:id/deleteImage')
       //id from the neume array imagesBinary
       //3. Keep the remove image from database storedImages. 
 
-
+    imageData = [];
 
     //This is the p element
      //The image deleted from the page is going to have imageDeleted as a name in the editNeume.jade file
@@ -422,6 +422,7 @@ router.route('/:id/deleteImage')
           if (err) {
               return console.error(err);
           } else {
+            imageData = [];
             //This works, when the page is reloaded
             //I need to use the find method to find the first element of the array that has the solution
             //Then I will pull from the imagesBinary array only that element
@@ -430,7 +431,7 @@ router.route('/:id/deleteImage')
               var found = BinImg.find(function(element) {
                 return element == imageToDelete;
               });
-
+              imageData = [];
             mongoose.model('neume').findOneAndUpdate({_id: neume.id}, {$pull: {imagesBinary : found}}, function(err, data){
                 console.log(err, data);
               });
@@ -444,8 +445,10 @@ router.route('/:id/deleteImage')
              mongoose.model('storedImages').remove({imgBase64 : imageToDelete}, function (err, data) {
                 console.log(err, data)
                 //I have to do this now tho
+                imageData = [];
               });
              // });
+             imageData = [];
         
               res.format({
                   //HTML returns us back to the main page, or you can create a success page
@@ -461,6 +464,8 @@ router.route('/:id/deleteImage')
                    }
 
                 });
+              
+             imageData = [];
                   }
               });
   });
