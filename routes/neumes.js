@@ -334,10 +334,11 @@ router.route('/:id/editImage')
                         });
 
                   });
+              imageArray = [];
                   mongoose.model('neume').find({project : ID_project}, function (err, neumes) { 
                         neumeFinal = neumes;
                         //console.log(neumeFinal);//This works!!!
-                      });
+                    
                     //HTML responds by going back to the page or you can be fancy and create a new view that shows a success page.
                     res.format({
                         html: function(){
@@ -348,6 +349,7 @@ router.route('/:id/editImage')
                              res.json(neume);
                        }
                     });
+                      });
                     imageArray = [];
              }
           })
