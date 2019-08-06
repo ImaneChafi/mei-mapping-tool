@@ -11,7 +11,7 @@ var neumeSchema = new mongoose.Schema({
   dob: { type: Date, default: Date.now },
   imagePath : [String],
   project: String,
-  imagesBinary : {imagesBinary : String, imageId : String},
+  imagesBinary : String],
   neumeSection : String,
   neumeSectionName : String
 });
