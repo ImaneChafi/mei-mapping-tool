@@ -1284,10 +1284,7 @@ router.route('/imageCSV')
                                                         if (jsonArray[i].includes("\"r:embed\":")) {
                                                             //console.log(jsonArray[i].split(":")[2]);
                                                             var rowWithId = jsonArray[i].split(":")[6];
-                                                            try{rowWithId = rowWithId.replace("\}", "");}
-                                                            catch(err){
-                                                                console.log(err);
-                                                            }
+                                                            rowWithId = rowWithId.replace("\}", "");
                                                             rowArray.push(rowWithId);
                                                             //console.log(rowArray); //This works perfectly
                                                             //An error happens when the neume gets all the files
@@ -1440,20 +1437,11 @@ router.route('/imageCSV')
                                                                 var a = new A;
                                                                 a.projectID = IdOfProject;
                                                                 a.neumeID = neume._id;
-                                                                try{a.img.data = fs.readFileSync(imgPath);}
-                                                                catch(err){
-                                                                    console.log(err)
-                                                                }
+                                                                a.img.data = fs.readFileSync(imgPath);
                                                                 a.img.contentType = 'image/png';
-                                                                try{a.imgBase64 = a.img.data.toString('base64');}
-                                                                catch(err){
-                                                                    console.log(err)
-                                                                }
+                                                                a.imgBase64 = a.img.data.toString('base64');
 
-                                                                try{imageData.push(a.img.data.toString('base64'));}
-                                                                catch(err){
-                                                                    console.log(err)
-                                                                } //This works for all the images stored in the database.
+                                                                imageData.push(a.img.data.toString('base64')); //This works for all the images stored in the database.
                                                                 //console.log(imageData); //This works
                                                                 mongoose.model('neume').find({
                                                                     _id: neume._id
