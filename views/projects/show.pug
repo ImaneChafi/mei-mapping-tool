@@ -130,24 +130,24 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
       // Modal content
       .modal-content
         span.close ×
-        include newNeume.jade
+        include newNeume.pug
 
     .modal(id = "uploadCSV")
       .modal-content
         span.close x
-        include uploadCSV.jade
+        include uploadCSV.pug
 
     .modal(id = "imageCSV")
       .modal-content
         span.close x
-        include imageCSV.jade
+        include imageCSV.pug
 
       // Add New Neume Modal
     #modalSection.modal
       // Modal content
       .modal-content
         span.close ×
-        include section.jade
+        include section.pug
     button(id = "modalSectionButton" type = "button" hidden)
 
     form(action='/projects/#{project._id}/edit',method='post',name='updateproject',enctype='application/x-www-form-urlencoded')
@@ -233,7 +233,7 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                   .modal-content
                     span.close x
                     h4(style = "font:30px Avenir, sans-serif;") Edit Images
-                    include editNeume.jade
+                    include editNeume.pug
                 div(class="droptarget")
                 div(draggable="true"  id="dragtarget")
                 div.ui-state-default(id = "drop#{neume.id}")

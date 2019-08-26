@@ -62,7 +62,7 @@ router.route('/')
 
                         //respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
                         res.format({
-                            //HTML response will render the index.jade file in the views/projects folder. We are also setting "projects" to be an accessible variable in our jade view
+                            //HTML response will render the index.pug file in the views/projects folder. We are also setting "projects" to be an accessible variable in our pug view
                             html: function() {
                                 console.log(userFinal);
                                 res.render('projects/index', {
@@ -244,7 +244,7 @@ router.route('projects/:id/edit')
                 var projectdob = project.dob.toISOString();
                 projectdob = projectdob.substring(0, projectdob.indexOf('T'))
                 res.format({
-                    //HTML response will render the 'edit.jade' template
+                    //HTML response will render the 'edit.pug' template
                     html: function() {
                         res.redirect("/projects/")
                     },
@@ -345,7 +345,7 @@ router.route('/projects')
             } else {
                 //respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
                 res.format({
-                    //HTML response will render the index.jade file in the views/projects folder. We are also setting "projects" to be an accessible variable in our jade view
+                    //HTML response will render the index.pug file in the views/projects folder. We are also setting "projects" to be an accessible variable in our pug view
                     html: function() {
                         res.render('projects/index', {
                             title: 'projects',
@@ -493,7 +493,7 @@ router.route('/project/:id/edit')
                 var projectdob = project.dob.toISOString();
                 projectdob = projectdob.substring(0, projectdob.indexOf('T'))
                 res.format({
-                    //HTML response will render the 'edit.jade' template
+                    //HTML response will render the 'edit.pug' template
                     html: function() {
                         res.render('projects/edit', {
                             title: 'project' + project._id,
@@ -862,7 +862,7 @@ router.route('/forkPublic/:id') //This is where the classifier would be
                                 console.log(neumeFinal); //This is shown on the console!
                                 console.log(userFinal) //This is shown on the console!
 
-                                res.render('projects/showFork.jade', {
+                                res.render('projects/showFork.pug', {
                                     "projectdob": projectdob,
                                     "project": project,
                                     "neumes": neumeFinal,

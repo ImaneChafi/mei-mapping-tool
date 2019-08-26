@@ -211,10 +211,10 @@ router.route('/about')
         });
         //respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
         res.format({
-            //HTML response will render the index.jade file in the views/projects folder. We are also setting "projects" to be an accessible variable in our jade view
+            //HTML response will render the index.pug file in the views/projects folder. We are also setting "projects" to be an accessible variable in our pug view
             html: function() {
                 console.log(userFinal);
-                res.render('about.jade', {
+                res.render('about.pug', {
                     title: 'About',
                     "users": userFinal
                 });
@@ -254,7 +254,7 @@ router.route('/updateSection')
 
                     //respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
                     res.format({
-                        //HTML response will render the index.jade file in the views/projects folder. We are also setting "projects" to be an accessible variable in our jade view
+                        //HTML response will render the index.pug file in the views/projects folder. We are also setting "projects" to be an accessible variable in our pug view
                         html: function() {
                             console.log(userFinal);
                             res.redirect("back");

@@ -59,7 +59,7 @@ html
                              input#inputName(class = "createProjectInput" type="text", placeholder="ex. Project", name="name" required)
                           p
                              button#btnSubmit(type="submit" class = "button buttonAddProject") submit
-            // Link to open the modal
+          
           a(href='#ex1', rel='modal:open') Add project
 
           a(href='/about') Learn more
@@ -73,7 +73,7 @@ html
                     .section-header(style = "overflow : auto;")
                       h2.projectHeader My Projects
                       ul
-                          - each project, i in projects
+                           each project, i in projects
                              button.collapsible(onclick = "window.location='/projects/#{project._id}'" method='post',name='updateproject',enctype='application/x-www-form-urlencoded' class="button button5") #{project.name} 
                              br
                              form#formProjectDelete(action='/projects/#{project._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
@@ -111,13 +111,13 @@ html
 
                       h2.projectHeader Other Projects
                       ul
-                          - each project, i in allProject
+                           each project, i in allProject
                              button.collapsible(style = " clear : left;" onclick = "window.location='/projects/forkPublic/#{project._id}'" method='post',name='updateproject',enctype='application/x-www-form-urlencoded' class="button button5") #{project.name} 
                              br
                              br
 
 
-              footer
+            footer
                 //img(src='img/avatar.jpeg', alt='Footer Logo')
                 span
                   | Cress

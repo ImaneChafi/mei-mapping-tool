@@ -39,7 +39,7 @@ router.route('/cancel')
             } else {
                 //  respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
                 res.format({
-                    //  HTML response will render the index.jade file in the views/neumes folder. We are also setting "neumes" to be an accessible variable in our jade view
+                    //  HTML response will render the index.pug file in the views/neumes folder. We are also setting "neumes" to be an accessible variable in our pug view
                     html: function() {
                         res.redirect('back')
                     },
@@ -63,7 +63,7 @@ router.route('/user')
             } else {
                 //  respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
                 res.format({
-                    //  HTML response will render the index.jade file in the views/neumes folder. We are also setting "neumes" to be an accessible variable in our jade view
+                    //  HTML response will render the index.pug file in the views/neumes folder. We are also setting "neumes" to be an accessible variable in our pug view
                     html: function() {
                         res.render('neumes/user', {
                             title: 'Project',
@@ -90,7 +90,7 @@ router.route('/about')
             } else {
                 //respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
                 res.format({
-                    //  HTML response will render the index.jade file in the views/neumes folder. We are also setting "neumes" to be an accessible variable in our jade view
+                    //  HTML response will render the index.pug file in the views/neumes folder. We are also setting "neumes" to be an accessible variable in our pug view
                     html: function() {
                         res.render('neumes/about', {
                             title: 'About',
@@ -118,7 +118,7 @@ router.route('/')
             } else {
                 //  respond to both HTML and JSON. JSON responses require 'Accept: application/json;' in the Request Header
                 res.format({
-                    //  HTML response will render the index.jade file in the views/neumes folder. We are also setting "neumes" to be an accessible variable in our jade view
+                    //  HTML response will render the index.pug file in the views/neumes folder. We are also setting "neumes" to be an accessible variable in our pug view
                     html: function() {
                         res.render('neumes', {
                             title: 'Neumes',
@@ -269,7 +269,7 @@ router.route('/:id/editImage')
                 neumedob = neumedob.substring(0, neumedob.indexOf('T'))
                 imageArray = [];
                 res.format({
-                    //HTML response will render the 'edit.jade' template
+                    //HTML response will render the 'edit.pug' template
                     html: function() {
                         res.render('neumes/edit', {
                             title: 'neume' + neume._id,
@@ -380,7 +380,7 @@ router.route('/:id/editImage')
         var imageToDelete = req.body.imageDeleted;
         //console.log(imageToDelete);
         //This is the p element
-        //The image deleted from the page is going to have imageDeleted as a name in the editNeume.jade file
+        //The image deleted from the page is going to have imageDeleted as a name in the editNeume.pug file
         //req.body.imageDeleted doesnt seem to work
         //find neume by ID
         mongoose.model('neume').findById(req.id, function(err, neume) {
@@ -423,7 +423,7 @@ router.route('/:id/deleteImage')
         var imageToDelete = req.body.imageDeleted; //this seems to be undefined.
 
         //This is the p element
-        //The image deleted from the page is going to have imageDeleted as a name in the editNeume.jade file
+        //The image deleted from the page is going to have imageDeleted as a name in the editNeume.pug file
         //req.body.imageDeleted doesnt seem to work
         //find neume by ID
         mongoose.model('neume').findById(req.id, function(err, neume) {
@@ -547,7 +547,7 @@ router.route('/:id/edit')
                 var neumedob = neume.dob.toISOString();
                 neumedob = neumedob.substring(0, neumedob.indexOf('T'))
                 res.format({
-                    //HTML response will render the 'edit.jade' template
+                    //HTML response will render the 'edit.pug' template
                     html: function() {
                         res.render('neumes/edit', {
                             title: 'neume' + neume._id,
