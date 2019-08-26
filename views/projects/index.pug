@@ -75,6 +75,7 @@ html
                       ul
                            each project, i in projects
                              button.collapsible(onclick = "window.location='/projects/#{project._id}'" method='post',name='updateproject',enctype='application/x-www-form-urlencoded' class="button button5") #{project.name} 
+                             a(href = "/projects/" + project._id ) #{project.name} 
                              br
                              form#formProjectDelete(action='/projects/#{project._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
                                input(type='hidden',value='DELETE',name='_method')
