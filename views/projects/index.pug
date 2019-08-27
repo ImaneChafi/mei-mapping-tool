@@ -76,7 +76,7 @@ html
                            each project, i in projects
                              button.collapsible(method='post',name='updateproject',enctype='application/x-www-form-urlencoded' class="button button5" id = "button" + project._id) #{project.name} 
                              
-                             form#formProjectDelete(action='/projects/#{project._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
+                             form#formProjectDelete(action='/projects/' + project._id + '/edit',method='post',enctype='application/x-www-form-urlencoded')
                                input(type='hidden',value='DELETE',name='_method')
                                button(type='button' class="button button3" id = "buttonProject" + project._id).
                                   x
@@ -84,7 +84,7 @@ html
                                br
                                br
 
-                               .modalDeleteCollab(id = "DeleteProjectModal#{project._id}")
+                               .modalDeleteCollab(id = "DeleteProjectModal" + project._id)
                                   // Modal content
                                   .modalDeleteCollab-content
                                     span.closeDeleteCollab(id = "closingModal" + project._id) ×
