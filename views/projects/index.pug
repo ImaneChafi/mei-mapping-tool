@@ -74,9 +74,8 @@ html
                       h2.projectHeader My Projects
                       ul
                            each project, i in projects
-                             button.collapsible(onclick = "window.location='/projects/#{project._id}'" method='post',name='updateproject',enctype='application/x-www-form-urlencoded' class="button button5") #{project.name} 
-                             a(href = "/projects/" + project._id ) #{project.name} 
-                             br
+                             button.collapsible(method='post',name='updateproject',enctype='application/x-www-form-urlencoded' class="button button5" id = "button" + project._id) #{project.name} 
+                             
                              form#formProjectDelete(action='/projects/#{project._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
                                input(type='hidden',value='DELETE',name='_method')
                                button(type='button' class="button button3" id = "buttonProject#{project._id}").
@@ -113,7 +112,7 @@ html
                       h2.projectHeader Other Projects
                       ul
                            each project, i in allProject
-                             button.collapsible(style = " clear : left;" onclick = "window.location='/projects/forkPublic/#{project._id}'" method='post',name='updateproject',enctype='application/x-www-form-urlencoded' class="button button5") #{project.name} 
+                             button.collapsible(style = " clear : left;" method='post',name='updateproject',enctype='application/x-www-form-urlencoded' class="button button5" id = "buttonFork" + project._id) #{project.name} 
                              br
                              br
 
@@ -127,4 +126,11 @@ html
 
 
             script(type='text/javascript' src='/javascripts/addProject.js')
+            script.
+              document.getElementById("button#{project._id}").onclick = function () {
+                  location.href = '/projects/#{project._id}';
+              };
+              document.getElementById("buttonFork#{project._id}").onclick = function () {
+                  location.href = '/projects/forkPublic/#{project._id}';
+              };
                       
