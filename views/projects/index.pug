@@ -78,20 +78,21 @@ html
                              
                              form#formProjectDelete(action='/projects/#{project._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
                                input(type='hidden',value='DELETE',name='_method')
-                               button(type='button' class="button button3" id = "buttonProject#{project._id}").
-                                      x
+                               button(type='button' class="button button3" id = "buttonProject" + project._id).
+                                  x
+                               br
                                br
                                br
 
                                .modalDeleteCollab(id = "DeleteProjectModal#{project._id}")
                                   // Modal content
                                   .modalDeleteCollab-content
-                                    span.closeDeleteCollab(id = "closingModal#{project._id}") ×
+                                    span.closeDeleteCollab(id = "closingModal" + project._id) ×
                                     h3 Are you sure you want to delete this project? 
                                     h3 #{project.name}
                                     p
                                      button(type='submit' class = "button3DeleteProject") Yes
-                                     button(type = "button" class = "buttonNo" id = "NoButton#{project._id}") No
+                                     button(type = "button" class = "buttonNo" id = "NoButton" + project._id) No
                                      br
 
                                      script.
@@ -108,6 +109,11 @@ html
                                                document.getElementById("closingModal#{project._id}").onclick = function(){
                                                 document.getElementById("DeleteProjectModal#{project._id}").style.display = 'none';
                                                 };
+                                                
+                                                document.getElementById("button#{project._id}").onclick = function () {
+                                                    window.location.href = '/projects/#{project._id}';
+                                                };
+              
 
                       h2.projectHeader Other Projects
                       ul
@@ -115,22 +121,16 @@ html
                              button.collapsible(style = " clear : left;" method='post',name='updateproject',enctype='application/x-www-form-urlencoded' class="button button5" id = "buttonFork" + project._id) #{project.name} 
                              br
                              br
-
+                             script.
+                              document.getElementById("buttonFork#{project._id}").onclick = function () {
+                                  window.location.href = '/projects/forkPublic/#{project._id}';
+                              };
+ 
 
             footer
                 //img(src='img/avatar.jpeg', alt='Footer Logo')
                 span
                   | Cress
                   br
-                  | MIT License 2019
-
-
-            script(type='text/javascript' src='/javascripts/addProject.js')
-            script.
-              document.getElementById("button#{project._id}").onclick = function () {
-                  location.href = '/projects/#{project._id}';
-              };
-              document.getElementById("buttonFork#{project._id}").onclick = function () {
-                  location.href = '/projects/forkPublic/#{project._id}';
-              };
-                      
+                  | MIT License 2019    
+            script(type='text/javascript' src='/javascripts/addProject.js')       

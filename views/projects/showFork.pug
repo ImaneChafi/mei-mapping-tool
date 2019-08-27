@@ -59,48 +59,46 @@ html
   link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
   link(rel='stylesheet', href='/stylesheets/w3-toggle.css')
 
- each user in users
-  div
-    header(style = "padding : 5px").sticky
-        // Main logo
-        a#logo(href='#' style = "padding-left : 30px; position : relative; top : -60px")
-          span Cress 🎵 
-        // main navigation links
-        nav
-          ul
-              li
-                a(href='/about') About
-              li
-                a(href='/projects') Projects
-              li
-                a(href='http://ddmal.music.mcgill.ca/') DDMAL 
-              li
-                a(href='/') Log out
-              li
-                a(href='#' class= "tooltip" style = "z-index : 10000;") Help
-                 span.tooltiptext(style = "font : 12px Avenir, sans-serif;") If you do not see the neumes on the page, reload the page once.
-              li
-                a(href='/profile') #{user.username} 
-                 i.fa.fa-user.fa-lg
-
-
-//Title section : Adding a neume button and changing the title name                
+  each user in users
+    div
+      header(style = "padding : 5px").sticky
+          // Main logo
+          a#logo(href='#' style = "padding-left : 30px; position : relative; top : -60px")
+            span Cress 🎵 
+          // main navigation links
+          nav
+            ul
+                li
+                  a(href='/about') About
+                li
+                  a(href='/projects') Projects
+                li
+                  a(href='http://ddmal.music.mcgill.ca/') DDMAL 
+                li
+                  a(href='/') Log out
+                li
+                  a(href='#' class= "tooltip" style = "z-index : 10000;") Help
+                   span.tooltiptext(style = "font : 12px Avenir, sans-serif;") If you do not see the neumes on the page, reload the page once.
+                li
+                  a(href='/profile') #{user.username} 
+                   i.fa.fa-user.fa-lg
+           
 div.neumeSection(style = "padding-top : 97px")
   body
     form()
       
-      input#projectName(type='text', value='#{project.name}', name='nameProject' required,style="font-size:35px; font: 35px Avenir, sans-serif; width : 60%; margin : 0px padding : 0px")
+      input#projectName(type='text', value= project.name, name='nameProject' required,style="font-size:35px; font: 35px Avenir, sans-serif; width : 60%; margin : 0px padding : 0px")
     form(action='/csvProject',method='post',enctype='application/x-www-form-urlencoded')
-                  input(type='text',value='#{project.id}', name='IdOfProject' hidden)
-                  input(type='text',value='#{project.name}', name='projectName' hidden)
+                  input(type='text',value = project.id, name='IdOfProject' hidden)
+                  input(type='text',value = project.name, name='projectName' hidden)
                   button(type = 'submit' class = 'button button2CSV' class = 'tooltip')
                     i.fa.fa-download
                     |  CSV 
                     span.tooltiptext To download the project as a .csv file, click here!
 
     form(action='/fork',method='post',enctype='application/x-www-form-urlencoded')
-              input(type='text',value='#{project.id}', name='IdOfProject' hidden)
-              input(type='text',value='#{project.name}', name='projectName' hidden)
+              input(type='text',value = project.id, name='IdOfProject' hidden)
+              input(type='text',value= project.name, name='projectName' hidden)
               button(type = 'submit' class = 'button button2CSV' class = 'tooltip')
                 i.fa.fa-code-fork
                 |  Fork
@@ -125,30 +123,30 @@ div.neumeSection(style = "padding-top : 97px")
     .bodyStyle
       .roundedCorners(id = "roundedCorners")
         ul
-            - each neume in neumes
+             each neume in neumes
                 // Images Section
-                div.ui-state-default(id = "drop#{neume.id}")
-                  button.collapsible.paddingCollapsible(id = "collapsible#{neume.id}") #{neume.name}#{neume.neumeSectionName}
+                div.ui-state-default(id = "drop" + neume.id)
+                  button.collapsible.paddingCollapsible(id = "collapsible" + neume.id) #{neume.name}#{neume.neumeSectionName}
                   form(name='updateneumepublic',enctype='application/x-www-form-urlencoded')
                       .column
                          .card
                            .panel.panel-default
                              .panel-body
-                                div(id = "image#{neume.id}")
+                                div(id = "image" + neume.id)
 
                            // Name, Folio and Description Section
                       .column(style = "width : 20%;")
                         .height
                          .card(style = "overflow : hidden; text-align : left")
-                              input#inputName(type='text', value='#{neume.name}', name='name' required,style="font-size:12px; margin : 0px padding : 0px; font: 14px Avenir, sans-serif;")
+                              input#inputName(type='text', value=neume.name, name='name' required,style="font-size:12px; margin : 0px padding : 0px; font: 14px Avenir, sans-serif;")
                               .column
                                p(style = "font: 14px Avenir, sans-serif; float : left; margin-top : 0px; display:table-cell; ") Folio: 
                               .column 
-                               input#inputfolio(type='text', value='#{neume.folio}', name='folio', style="font-size:12px; float:right; padding : none; margin-bottom : 0px; height : 15px; width : 40%; font: 14px Avenir, sans-serif; display:table-cell; right : 20px; position : absolute" )
+                               input#inputfolio(type='text', value='neume.folio', name='folio', style="font-size:12px; float:right; padding : none; margin-bottom : 0px; height : 15px; width : 40%; font: 14px Avenir, sans-serif; display:table-cell; right : 20px; position : absolute" )
                                br
                               p(style = "position : absolute; padding-top : 15px; font: 14px Avenir, sans-serif;") Description:  
                               .column
-                               input#inputDescription(type='text', value='#{neume.description}', name='description', style="font-size:12px;  margin-bottom : 0px; margin-top : 20px; height : 20px; font: 14px Avenir, sans-serif; position: absolute; width : 40%")
+                               input#inputDescription(type='text', value= neume.description, name='description', style="font-size:12px;  margin-bottom : 0px; margin-top : 20px; height : 20px; font: 14px Avenir, sans-serif; position: absolute; width : 40%")
                                br
                                br
                                br
@@ -156,20 +154,19 @@ div.neumeSection(style = "padding-top : 97px")
                       // Classification Section
                       .column(style = "width : 20%")
                          .card
-                          input#inputClassification(type='text',value='#{neume.classification}', name='classification' style="font-size:12px; font: 16px Avenir, sans-serif;")
+                          input#inputClassification(type='text',value= neume.classification, name='classification' style="font-size:12px; font: 16px Avenir, sans-serif;")
 
                       // Mei snippet Section
                       .column(style = "width : 35%")
                          .card 
                            .panel.panel-default
                             .panel-body
-                                 div(id = "#{neume.id}" style = "height : 100px;")
-                                   p 
-                                  textarea(name='mei' style='display: none;' id = 'textarea#{neume.id}') #{neume.mei}
-                              label.switch(style = "top : -150px; left : 40%;")
-                                  input( onclick="check#{neume.id}();" type='checkbox', id = "toggle#{neume.id}" value = "#{neume.review}")
+                                 div(id = neume.id, style = "height : 100px;")
+                                    textarea(name='mei' style='display: none;' id = 'textarea' + neume.id) #{neume.mei}
+                            label.switch(style = "top : -150px; left : 40%;")
+                                  input( onclick="check#{neume.id}();" type='checkbox', id = "toggle" + neume.id value = "#{neume.review}")
                                   span.slider.round
-                                  input(type = "text" name = "review", id = "inputCheckbox#{neume.id}" hidden value = "#{neume.review}")
+                                  input(type = "text" name = "review", id = "inputCheckbox" + neume.id hidden value = "#{neume.review}")
                       script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
                       script(src='/ace-builds/src-noconflict/ace.js', type='text/javascript', charset='utf-8')
                       script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js', type='text/javascript')
@@ -188,8 +185,8 @@ div.neumeSection(style = "padding-top : 97px")
                     });
                   editor#{neume.id}.setTheme("ace/theme/monokai");
                   editor#{neume.id}.session.setMode("ace/mode/xml");
-                  var meiString = textarea.value;
-                  editor#{neume.id}.setValue(meiString);
+                  //var meiString = textarea.value;
+                  //editor#{neume.id}.setValue(meiString);
 
                   //Getting the canvas for the mei snippets : 
                   var imagePaths = "#{neume.imagesBinary}";
@@ -256,7 +253,7 @@ div.neumeSection(style = "padding-top : 97px")
                     });
                     //To save the collapsible state of the neumes
                       var element = "collapsible#{neume.id}";
-                      var content = document.getElementById("collapsible" + #{neume.id}").nextElementSibling;
+                      var content = document.getElementById("collapsible#{neume.id}").nextElementSibling;
                       if ($.cookie(element) == "false") {
 
                         content.style.display = "none";

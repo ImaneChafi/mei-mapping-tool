@@ -26,15 +26,6 @@ var span = document.getElementsByClassName("close")[0];
 //Variables for the new button project
 var newProject = document.createElement("BUTTON");
 
-// When the user clicks on the button, open the modal 
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-//On click of the x button, the modal disappears. 
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
@@ -47,27 +38,3 @@ var newProject = document.createElement("BUTTON");
 newProject.setAttribute("style", "   background-color: #659abb; border-radius: 10px; /* Green */ border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;");
 
 
-//name submitted by the person
-var section = document.getElementById("section");
-newProject.innerText = "Test Project";
-section.appendChild(newProject);
-newProject.onclick = function() {
-    window.location.href = '/meiMapping'
-}
-
-buttonSubmit.onclick = function() {
-    var newProject = document.createElement("BUTTON");
-    newProject.setAttribute("style", "   background-color: #659abb; border-radius: 10px; /* Green */ border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;");
-
-    //Submit button closes pop-up
-    modal.style.display = "none";
-    var name = document.getElementById("elementName").value;
-
-    //name submitted by the person
-    var section = document.getElementById("section");
-    newProject.innerText = name;
-    section.appendChild(newProject);
-    newProject.onclick = function() {
-        window.location.href = '/meiMapping'
-    }
-}
