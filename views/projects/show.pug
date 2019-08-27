@@ -294,11 +294,11 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                             .panel-body
                                  div(id = neume.id style = "height : 100px;")
                                    p 
-                                   textarea(name='mei' style='display: none;' id = 'textarea#{neume.id}') #{neume.mei}
+                                   textarea(name='mei' style='display: none;' id = 'textarea'+ neume.id) #{neume.mei}
                                  label.switch
                                     input( onclick="check" + neume.id + "();" type='checkbox', id = "toggle" + neume.id value = neume.review)
                                     span.slider.round
-                                    input(type = "text" name = "review", id = "inputCheckbox#{neume.id}" hidden value = neume.review)
+                                    input(type = "text" name = "review", id = "inputCheckbox" + neume.id hidden value = neume.review)
 
                       //Submitting the update form
                       input(type='hidden',value='PUT',name='_method')
@@ -427,7 +427,7 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                     //To save the collapsible state of the neumes
                       var deleteButtonCollapse = document.getElementById("deleteNeumeButton" + neume.id);
                       var element = "collapsible" + neume.id;
-                      var content = document.getElementById("collapsible + neume.id).nextElementSibling;
+                      var content = document.getElementById("collapsible" + neume.id).nextElementSibling;
                       if ($.cookie(element) == "false") {
 
                         content.style.display = "none";
@@ -571,18 +571,19 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                     if(document.getElementById("toggle#{neume.id}").value == "Yes"){
                     document.getElementById("toggle#{neume.id}").checked = true;
                     }
+                    var neumeidValue = "#{neume.id}";
 
-                    function check + neume.id + ()
+                    function check#{neume.id}()
                     {
                       if (document.getElementById('toggle' + neume.id).checked) 
                       {
                          document.getElementById('inputCheckbox' + neume.id).value = "Yes";
                          document.getElementById('toggle' + neume.id).checked = true;
                       } else {
-                          document.getElementById('inputCheckbox + neume.id).value = "No";
+                          document.getElementById('inputCheckbox' + neume.id).value = "No";
                       }
                     }
-                    function load + neume.id + ()
+                    function load#{neume.id}()
                     {
                       if (document.getElementById('toggle' + neume.id).checked) 
                       {

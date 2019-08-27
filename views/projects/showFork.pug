@@ -59,7 +59,7 @@ html
   link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
   link(rel='stylesheet', href='/stylesheets/w3-toggle.css')
 
-- each user in users
+ each user in users
   div
     header(style = "padding : 5px").sticky
         // Main logo
@@ -256,7 +256,7 @@ div.neumeSection(style = "padding-top : 97px")
                     });
                     //To save the collapsible state of the neumes
                       var element = "collapsible#{neume.id}";
-                      var content = document.getElementById("collapsible#{neume.id}").nextElementSibling;
+                      var content = document.getElementById("collapsible" + #{neume.id}").nextElementSibling;
                       if ($.cookie(element) == "false") {
 
                         content.style.display = "none";
