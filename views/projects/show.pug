@@ -607,9 +607,7 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                         event.target.style.border = "3px dotted red";
                       }
                     });
-                    document.getElementById("editButton").onclick = function(){
-                        document.getElementsByClassName("editing").style.display = "block";
-                    };
+                    
 
                     //Array for the position of elements from the database. split into the drop#{neume.id}
                     //Values of div and changing their positions by appending them depending on the order in the database.
@@ -640,9 +638,9 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                     <!-- Cookie Consent by https://www.TermsFeed.com -->
 div(id = "section")
    ul
-        each section in sections
+         each section in sections
           div(id = "section" + section._id class = section._id style = "border-color : black; border-style : solid; border-size : 0.5px; border-radius : 10px; margin : 10px; margin-top : 30px").ui-state-default
-              p(style = "margin : 10px; font : 20px Avenir, sans-serif; " id = "section._id") #{section.name}
+              p(style = "margin : 10px; font : 20px Avenir, sans-serif; " id = section._id) #{section.name}
               p(id = "sectionName" + section._id)
               form(action='/sectionDelete',method='post',enctype='application/x-www-form-urlencoded')
                         input(type='hidden',value='DELETE',name='_method')
@@ -666,18 +664,18 @@ div(id = "section")
                   input(type='text', name='neumeSectionIds' id = "inputArraySection" + section._id hidden)
                   input(type='text', name='SectionID' id = "sectionID" + section._id hidden)
 
-                  button(id = "buttonSection" + section._id, type = 'submit' class = 'button button2CSVUpdate' class = 'tooltip' style = "font: 14px Avenir, sans-serif; width : 3%; right : 50px; top : -52px; max-width : 10%" )
+                  button(id = "buttonSection" + section._id type = 'submit' class = 'button button2CSVUpdate' class = 'tooltip' style = "font: 14px Avenir, sans-serif; width : 3%; right : 50px; top : -52px; max-width : 10%" )
                     i.fa.fa-pencil
                     //span.tooltiptext To download the project as a .csv file, click here!
           script.
-             document.getElementById("NoButton" + section._id).onclick = function(){
-             document.getElementById("DeleteModal" + section._id).style.display = 'none';
+             document.getElementById("NoButton#{section._id}").onclick = function(){
+             document.getElementById("DeleteModal#{section._id}").style.display = 'none';
              };
                window.addEventListener('load', function() {
-               initializeModal('DeleteModal" + section._id, 'deleteNeumeButton' + section._id);
+               initializeModal('DeleteModal#{section._id}', 'deleteNeumeButton#{section._id}');
 
                });
-               var idSection = document.getElementById("section" + section._id)
+               var idSection = document.getElementById("section#{section._id}")
                $(idSection).sortable({
                   connectWith: '.ui-state-default',
                   helper : 'clone',
@@ -718,19 +716,19 @@ div(id = "section")
                 //On drop, the section neumeIDs array gets added the neumeID
                 neumeArray.push(neumeID);
 
-                document.getElementById("inputArraySection" + section._id).value = neumeArray;//This needs to be defined
+                document.getElementById("inputArraySection#{section._id}").value = neumeArray;//This needs to be defined
 
-                console.log(document.getElementById("inputArraySection" + section._id).value);
+                console.log(document.getElementById("inputArraySection#{section._id}").value);
                 console.log(neumeArray);
 
               //Get that element on drop and put it as the section Id
-              var IdOfTarget = section._id}
+              var IdOfTarget = "#{section._id}"
               console.log(IdOfTarget);
               var IDWithSectionName = IdOfTarget;
 
               //classOfTarget is the Id of the section
-              document.getElementById("sectionID" + section._id).value = IdOfTarget;//This needs to be defined
-              document.getElementById("buttonSection" + section._id).disabled = false;
+              document.getElementById("sectionID#{section._id}").value = IdOfTarget;//This needs to be defined
+              document.getElementById("buttonSection#{section._id}").disabled = false;
 
                 //Show the section id (the class target) and the neumeArray linked to it.
 
@@ -748,15 +746,15 @@ div(id = "section")
               var neumeArrays = neumesInSection.split(",");
               console.log(neumesInSection);
               neumeArrays.forEach(function(neume){
-              document.getElementById("section" + section._id).appendChild(document.getElementById("drop" + neume));
+              document.getElementById("section#{section._id}").appendChild(document.getElementById("drop" + neume));
               })
 
-              if (document.getElementById("sectionID" + section._id).value == "")
-                document.getElementById("buttonSection" + section._id).disabled = true;
-              else if (document.getElementById("inputArraySection" + section._id).value == "")
-                document.getElementById("buttonSection" + section._id).disabled = true;
+              if (document.getElementById("sectionID#{section._id}").value == "")
+                document.getElementById("buttonSection#{section._id}").disabled = true;
+              else if (document.getElementById("inputArraySection#{section._id}").value == "")
+                document.getElementById("buttonSection#{section._id}").disabled = true;
               else
-                document.getElementById("buttonSection" + section._id).disabled = false;
+                document.getElementById("buttonSection#{section._id}").disabled = false;
 
 
 
@@ -776,4 +774,4 @@ script.
   }
    var neumeArray = [];
 <noscript>Cookie Consent by <a href="https://www.termsfeed.com/">TermsFeed</a></noscript>
-<!-- End Cookie Consent -->     
+<!-- End Cookie Consent -->                                          
