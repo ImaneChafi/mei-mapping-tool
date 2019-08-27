@@ -293,9 +293,10 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                              | &lt;/neume&gt;
                            .panel.panel-default
                             .panel-body
-                                 div(id = neume.id style = "height : 100px;")
+                                 div(id = neume._id style = "height : 100px;")
                                    p 
-                                   textarea(name='mei' style='display: none;' id = 'textarea'+ neume.id) #{neume.mei}
+                                   textarea(name='mei' style='display: block;' id = 'textarea'+ neume.id value = neume.mei) 
+                                    | #{neume.mei}
                                  label.switch
                                   input( onclick="check#{neume.id}();" type='checkbox', id = "toggle" + neume.id value = neume.review)
                                   span.slider.round
@@ -342,16 +343,17 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                   //For each neume in the project :
                   //Have an ace editor and add the value of the ace editor to a textarea, which is linked to the database
                   var editor#{neume.id} = ace.edit('#{neume.id}');
-                  var textarea = document.getElementById("textarea#{neume.id}");
-                  //console.log(textarea);
+                  var textarea#{neume._id} = document.getElementById("textarea#{neume._id}");
+                  console.log(textarea#{neume._id}) //This is somehow null
                     editor#{neume.id}.getSession().on("change", function () {
-                      textarea = document.getElementById("textarea#{neume.id}");
-                      textarea.value = editor#{neume.id}.getSession().getValue();
+                      textarea#{neume._id} = document.getElementById("textarea#{neume.id}");
+                      textarea#{neume._id}.value = editor#{neume.id}.getSession().getValue();
+                      console.log(editor#{neume.id}.getSession().getValue())
                     });
                   editor#{neume.id}.setTheme("ace/theme/monokai");
                   editor#{neume.id}.session.setMode("ace/mode/xml");
-                  //var meiString = textarea.value; Work on this afterwards
-                  //editor#{neume.id}.setValue(meiString);
+                  var meiString = textarea#{neume._id}.value; 
+                  editor#{neume.id}.setValue(meiString);
 
                   //Getting the canvas for the mei snippets : 
 
