@@ -116,8 +116,8 @@ body
                         //Append the button to the image card.
                         imageCard.appendChild(buttonDeleteImage);
                         $(buttonDeleteImage).click(function(){
-                             document.getElementById("imageToDelete" + neume.id).value = element; 
-                            $("#deleteImagebutton" + neume.id).click();
+                             document.getElementById("imageToDelete#{neume.id}").value = element; 
+                            $("#deleteImagebutton#{neume.id}").click();
                             //Delete the image :
                             canvas.style.display = "none";
                             buttonDeleteImage.style.display = "none";
