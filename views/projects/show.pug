@@ -2,7 +2,7 @@ doctype html
 html
   head
     title Cress 🎵 
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js', type='text/javascript')
+    
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     script(src='/ace-builds/src-noconflict/ace.js', type='text/javascript', charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
@@ -68,6 +68,7 @@ html
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js', type='text/javascript')
     link(rel='stylesheet', href='/stylesheets/dropdown.css')
     script(src='/javascripts/dropdown.js', type='text/javascript')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js', type='text/javascript')
 
 
 each user in users
@@ -292,9 +293,9 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                              | &lt;/neume&gt;
                            .panel.panel-default
                             .panel-body
-                                 div(id = neume.id style = "height : 100px;")
+                                 div(id = neume._id style = "height : 100px;")
                                    p 
-                                   textarea(name='mei' style='display: none;' id = 'textarea'+ neume.id) #{neume.mei}
+                                   textarea(name='mei' style='display: none;' id = 'textarea' + neume.id) #{neume.mei}
                                  label.switch
                                     input( onclick="check" + neume.id + "();" type='checkbox', id = "toggle" + neume.id value = neume.review)
                                     span.slider.round

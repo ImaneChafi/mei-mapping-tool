@@ -24,8 +24,8 @@ body
       
     script.
         Dropzone.autoDiscover = false;
-        if (document.getElementById('dropzone' + neume.id)) {
-          var myDropzone = new Dropzone("div#dropzone" + neume.id, {
+        if (document.getElementById('dropzone#{neume.id}')) {
+          var myDropzone = new Dropzone("div#dropzone#{neume.id}", {
               maxFileSize: 10, //MB
               acceptedFiles: ".png, .jpg, .tiff, .tif, .jpeg",
               addRemoveLinks: false,
@@ -89,13 +89,13 @@ body
                         console.log(imageSrc);
                         //This element is linked to multiple neumes. We need to change 
                         //its id so that it is unique to the neume we want to delete the image from.
-                        var imageDeletedPath = document.getElementById("imageToDelete" + neume.id);
+                        var imageDeletedPath = document.getElementById("imageToDelete#{neume.id}");
                         imageDeletedPath.value = element;
                         imageDeletedPath.name = "imageDeleted";
                         imageDeletedPath.hidden = true;
                         //console.log(imageDeletedPath);
                         
-                        var imageCard = document.getElementById("images" + neume.id);//getting
+                        var imageCard = document.getElementById("images#{neume.id}");//getting
                         //add the image to the canvas
                         imageCard.appendChild(canvas);
                         //console.log(imageCard); //This is appended
