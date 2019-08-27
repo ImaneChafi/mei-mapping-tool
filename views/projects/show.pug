@@ -293,13 +293,14 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                              | &lt;/neume&gt;
                            .panel.panel-default
                             .panel-body
-                                 div(id = neume._id style = "height : 100px;")
+                                 div(id = neume.id style = "height : 100px;")
                                    p 
-                                   textarea(name='mei' style='display: none;' id = 'textarea' + neume.id) #{neume.mei}
+                                   textarea(name='mei' style='display: none;' id = 'textarea'+ neume.id) #{neume.mei}
                                  label.switch
-                                    input( onclick="check" + neume.id + "();" type='checkbox', id = "toggle" + neume.id value = neume.review)
-                                    span.slider.round
-                                    input(type = "text" name = "review", id = "inputCheckbox" + neume.id hidden value = neume.review)
+                                  input( onclick="check#{neume.id}();" type='checkbox', id = "toggle" + neume.id value = neume.review)
+                                  span.slider.round
+                                  input(type = "text" name = "review", id = "inputCheckbox" + neume.id hidden value = neume.review)
+
 
                       //Submitting the update form
                       input(type='hidden',value='PUT',name='_method')
@@ -338,7 +339,7 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
 
                 script.
 
-                  //For each neume in the project :(work on this pug formatting)
+                  //For each neume in the project :
                   //Have an ace editor and add the value of the ace editor to a textarea, which is linked to the database
                   var editor#{neume.id} = ace.edit('#{neume.id}');
                   var textarea = document.getElementById("textarea#{neume.id}");
@@ -349,22 +350,22 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                     });
                   editor#{neume.id}.setTheme("ace/theme/monokai");
                   editor#{neume.id}.session.setMode("ace/mode/xml");
-                  var meiString = textarea.value;
-                  editor#{neume.id}.setValue(meiString);
+                  //var meiString = textarea.value; Work on this afterwards
+                  //editor#{neume.id}.setValue(meiString);
 
                   //Getting the canvas for the mei snippets : 
 
-                  var imagePaths = neume.imagePath;
+                  var imagePaths = "#{neume.imagePath}";
                   var imageArray = imagePaths.split(',');
                   var canvas = document.createElement('canvas');
                   var ctx = canvas.getContext("2d");
                   var image = new Image();
-                  var imageCard = document.getElementById(neume.id + "");//getting
+                  var imageCard = document.getElementById("#{neume.id}");//getting
                   imageCard.appendChild(canvas);
 
                   /*Function to create a canvas for each image inside of the imagepath array of the neume
                   @param element : single imagepath of the array*/
-                    var imagePaths = neume.imagesBinary;
+                    var imagePaths = "#{neume.imagesBinary}";
                     var imageArray = imagePaths.split(',');
                     //console.log(imageArray);
                     imageArray.forEach(function(element) {
@@ -395,7 +396,7 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                         0, 0, canvas.width, canvas.height);
                     }
                     image.src = "data:image/png;base64," + element; //getting the file paths
-                    var imageCard = document.getElementById("image" + neume.id);//getting
+                    var imageCard = document.getElementById("image#{neume.id}");//getting
                     imageCard.appendChild(canvas);
                     canvas.appendChild(image);//the image is appended
                     });
@@ -403,10 +404,10 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                     /*On click function of the collapsible buttons. It makes the immediate children of the collapsible 
                     appear if the collapsible button is clicked.*/ 
 
-                    var coll = document.getElementById("collapsible" + neume.id);
+                    var coll = document.getElementById("collapsible#{neume.id}");
                     coll.addEventListener("click", function() {
 
-                      var deleteButtonCollapse = document.getElementById("deleteNeumeButton" + neume.id);
+                      var deleteButtonCollapse = document.getElementById("deleteNeumeButton#{neume.id}");
                      
                       this.classList.toggle("active");
                       var content = this.nextElementSibling;
@@ -415,7 +416,8 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                       console.log($.cookie(this.id)) 
 
                         content.style.display = "block";
-                  deleteButtonCollapse.style.display = "block"
+
+                        deleteButtonCollapse.style.display = "block"
                       } else {
                         $.cookie(this.id, "false")
                         console.log($.cookie(this.id)) 
@@ -426,9 +428,9 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                     });
 
                     //To save the collapsible state of the neumes
-                      var deleteButtonCollapse = document.getElementById("deleteNeumeButton" + neume.id);
-                      var element = "collapsible" + neume.id;
-                      var content = document.getElementById("collapsible" + neume.id).nextElementSibling;
+                      var deleteButtonCollapse = document.getElementById("deleteNeumeButton#{neume.id}");
+                      var element = "collapsible#{neume.id}";
+                      var content = document.getElementById("collapsible#{neume.id}").nextElementSibling;
                       if ($.cookie(element) == "false") {
 
                         content.style.display = "none";
@@ -440,8 +442,8 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                         deleteButtonCollapse.style.display = "block"
                       }
 
-                    document.getElementById("NoButton" + neume._id).onclick = function(){
-                    document.getElementById("DeleteModal" + neume.id).style.display = 'none';
+                    document.getElementById("NoButton#{neume._id}").onclick = function(){
+                    document.getElementById("DeleteModal#{neume.id}").style.display = 'none';
                     };
 
                      //Function for the collapse all button
@@ -478,11 +480,12 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                   
                      }
 
+                  //Modals event listeners for every modal
                   window.addEventListener('load', function() {
                       initializeModal('myModal', 'myBtn');
-                      initializeModal('DeleteModal' + neume.id, 'deleteNeumeButton' + neume.id);
+                      initializeModal('DeleteModal#{neume.id}', 'deleteNeumeButton#{neume.id}');
                       initializeModal('modalSection', 'modalSectionButton');
-                      initializeModal("editImages" + neume.id, "editImagesButton" + neume.id);
+                      initializeModal("editImages#{neume.id}", "editImagesButton#{neume.id}");
                       initializeModal('modalSection', 'sectionButton');
                       initializeModal('uploadCSV', 'uploadCSVButton');
                       initializeModal('imageCSV', 'imageCSVButton');
@@ -572,31 +575,30 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                     if(document.getElementById("toggle#{neume.id}").value == "Yes"){
                     document.getElementById("toggle#{neume.id}").checked = true;
                     }
-                    var neumeidValue = "#{neume.id}";
 
                     function check#{neume.id}()
                     {
-                      if (document.getElementById('toggle' + neume.id).checked) 
+                      if (document.getElementById('toggle#{neume.id}').checked) 
                       {
-                         document.getElementById('inputCheckbox' + neume.id).value = "Yes";
-                         document.getElementById('toggle' + neume.id).checked = true;
+                         document.getElementById('inputCheckbox#{neume.id}').value = "Yes";
+                         document.getElementById('toggle#{neume.id}').checked = true;
                       } else {
-                          document.getElementById('inputCheckbox' + neume.id).value = "No";
+                          document.getElementById('inputCheckbox#{neume.id}').value = "No";
                       }
                     }
                     function load#{neume.id}()
                     {
-                      if (document.getElementById('toggle' + neume.id).checked) 
+                      if (document.getElementById('toggle#{neume.id}').checked) 
                       {
-                         document.getElementById('inputCheckbox' + neume.id).value = "Yes";
-                         document.getElementById('toggle' + neume.id).checked = true;
+                         document.getElementById('inputCheckbox#{neume.id}').value = "Yes";
+                         document.getElementById('toggle#{neume.id}').checked = true;
                       } else {
-                          document.getElementById('inputCheckbox' + neume.id).value = "No";
+                          document.getElementById('inputCheckbox#{neume.id}').value = "No";
                       }
                     }
                     //submits the position of the neumes on click of the button
                     function buttonSaveLoad(){
-                      document.getElementById("position" + neume.id).submit();
+                      document.getElementById("position#{neume.id}").submit();
                     }
 
                     // When the draggable p element enters the droptarget, change the DIVS's border style
@@ -612,7 +614,7 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                     //Array for the position of elements from the database. split into the drop#{neume.id}
                     //Values of div and changing their positions by appending them depending on the order in the database.
                     //(The string is already ordered in the database from the neume sortable positions)
-                    var array = project.positionArray.split(',');
+                    var array = "#{project.positionArray}".split(',');
 
                       array.forEach(function(element){
                         document.getElementById("sortable1").appendChild(document.getElementById(element));
@@ -632,7 +634,7 @@ div.neumeSection(style = "padding-bottom : 3px; padding-top : 97px")
                                 positions: positions});
                                 //Change position here
   
-                            document.getElementById("inputPosition" + neume.id).value = positionArray;
+                            document.getElementById("inputPosition#{neume.id}").value = positionArray;
                             
                     } 
                     <!-- Cookie Consent by https://www.TermsFeed.com -->
