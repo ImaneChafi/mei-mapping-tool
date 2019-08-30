@@ -1250,27 +1250,34 @@ router.route('/imageCSV')
                     console.log(imageArray)
                     console.log(images)
                     var a = 0;
+                    var x = 0;
                     var array = [] 
                     rows.forEach(function(row){
                     for(var i = 0; i<6; i++){
                         if(tables[a] == undefined)
                             break
                     var imageBinary = row.firstChild.firstChild;
-                        console.log(imageBinary)
+                        //console.log(imageBinary)
                         var AllRow = tables[a].rawText;
-                        console.log( i + " : " + AllRow);
+                        //console.log( i + " : " + AllRow);
                         array.push(i + " : " + AllRow);
-                        var imageBinary = imageArray[a];
+                        var imageBinary = imageArray[x];
                         //console.log(imageBinary)
                         if(i == 0){
+                            if(a != 0){
                             AllRow = imageBinary;
+                            }
+                            else{
+                                x--;
+                            }
                         }
                         else{
-                            AllRow = tables[a].rawText;
+                            AllRow = AllRow;
                         }
                         console.log( i + " : " + AllRow);
-                        a++
+                        a++;
                     }
+                    x++;
 
                     })
 
