@@ -1260,7 +1260,6 @@ router.route('/imageCSV')
                         //console.log(imageBinary)
                         var AllRow = tables[a].rawText;
                         //console.log( i + " : " + AllRow);
-                        array.push(i + " : " + AllRow);
                         var imageBinary = imageArray[x];
                         //console.log(imageBinary)
                         if(i == 0){
@@ -1272,29 +1271,24 @@ router.route('/imageCSV')
                             }
                         }
                         else{
-                            AllRow = AllRow;
+                            AllRow = AllRow.toString();
                         }
-                        console.log( i + " : " + AllRow);
+                        array.push( i + " : " + AllRow.toString() );
                         a++;
                     }
                     x++;
 
                     })
+                    //console.log(array);
+                     console.log(array)
 
                     
+                    var arrayJson = [];
+                    for (var i = 0; i < array.length; i++) {
 
-                    for (var i = 1; i < jsonTables['results'][0].length; i++) {
-
-                        var json = jsonTables['results'][0][i];
-                        json = JSON.parse(JSON.stringify(json).split('0 :').join('"imagesBinary":'));
-                        json = JSON.parse(JSON.stringify(json).split('1 :').join('"name":'));
-                        json = JSON.parse(JSON.stringify(json).split('2 :').join('"folio":'));
-                        json = JSON.parse(JSON.stringify(json).split('3 :').join('"description":'));
-                        json = JSON.parse(JSON.stringify(json).split('4 :').join('"classification":'));
-                        json = JSON.parse(JSON.stringify(json).split('5 :').join('"mei":'));
-                        console.log(json);
+                    
                         //json = JSON.stringify(json);
-                        mongoose.model("neume").insertMany(json)
+                        mongoose.model("neume").insertMany(array[i])
                             .then(function(jsonObj) {
 
                                 jsonObj.forEach(function(neume) {
@@ -1547,7 +1541,7 @@ router.route('/imageCSV')
 
                                 })
                             })
-                        arrayJson.push(json); //Array to keep the values of the json object in the database
+                        arrayJson.push(array[i]); //Array to keep the values of the json object in the database
                     }
 
                     }
